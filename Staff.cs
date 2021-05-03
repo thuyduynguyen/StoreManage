@@ -12,12 +12,13 @@ namespace StoreManage
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class Staff
     {
-        public int userid { get; set; }
-        public string fullname { get; set; }
-        public string email { get; set; }
-        public string pass { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Date_join { get; set; }
         public string Position { get; set; }
+        public Nullable<int> Salary { get; set; }
     }
 }

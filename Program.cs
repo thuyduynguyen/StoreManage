@@ -16,7 +16,7 @@ namespace StoreManage
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CustomerForm());
+            Application.Run(new Home());
         }
     }
 }

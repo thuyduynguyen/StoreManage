@@ -29,6 +29,7 @@ namespace StoreManage
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Order_detail> Order_detail { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<user> users { get; set; }
     }
 }
