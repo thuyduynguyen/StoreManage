@@ -13,10 +13,10 @@ namespace StoreManage
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AccessoriesEntitiesProduct : DbContext
+    public partial class AccessoriesEntities : DbContext
     {
-        public AccessoriesEntitiesProduct()
-            : base("name=AccessoriesEntitiesProduct")
+        public AccessoriesEntities()
+            : base("name=AccessoriesEntities")
         {
         }
     
@@ -25,6 +25,10 @@ namespace StoreManage
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Order_detail> Order_detail { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<user> users { get; set; }
     }
 }

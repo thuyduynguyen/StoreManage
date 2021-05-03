@@ -44,6 +44,8 @@ namespace StoreManage
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQty)).BeginInit();
             this.panel1.SuspendLayout();
@@ -70,21 +72,21 @@ namespace StoreManage
             // 
             // txtProvider
             // 
-            this.txtProvider.Location = new System.Drawing.Point(41, 93);
+            this.txtProvider.Location = new System.Drawing.Point(41, 132);
             this.txtProvider.Name = "txtProvider";
             this.txtProvider.Size = new System.Drawing.Size(144, 20);
             this.txtProvider.TabIndex = 3;
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(41, 145);
+            this.txtPrice.Location = new System.Drawing.Point(41, 183);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(87, 20);
             this.txtPrice.TabIndex = 4;
             // 
             // txtProName
             // 
-            this.txtProName.Location = new System.Drawing.Point(41, 37);
+            this.txtProName.Location = new System.Drawing.Point(41, 79);
             this.txtProName.Name = "txtProName";
             this.txtProName.Size = new System.Drawing.Size(144, 20);
             this.txtProName.TabIndex = 5;
@@ -101,7 +103,7 @@ namespace StoreManage
             // 
             // txtQty
             // 
-            this.txtQty.Location = new System.Drawing.Point(41, 200);
+            this.txtQty.Location = new System.Drawing.Point(41, 231);
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(56, 20);
             this.txtQty.TabIndex = 8;
@@ -109,7 +111,7 @@ namespace StoreManage
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 21);
+            this.label2.Location = new System.Drawing.Point(38, 63);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 9;
@@ -118,7 +120,7 @@ namespace StoreManage
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 77);
+            this.label3.Location = new System.Drawing.Point(38, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 10;
@@ -127,7 +129,7 @@ namespace StoreManage
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 129);
+            this.label4.Location = new System.Drawing.Point(38, 167);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 11;
@@ -136,7 +138,7 @@ namespace StoreManage
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(38, 184);
+            this.label5.Location = new System.Drawing.Point(38, 215);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 12;
@@ -144,6 +146,8 @@ namespace StoreManage
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.txtID);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.txtProName);
             this.panel1.Controls.Add(this.label4);
@@ -187,6 +191,22 @@ namespace StoreManage
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // txtID
+            // 
+            this.txtID.Location = new System.Drawing.Point(41, 27);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(28, 20);
+            this.txtID.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(38, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Product ID";
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,5 +248,7 @@ namespace StoreManage
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtID;
     }
 }

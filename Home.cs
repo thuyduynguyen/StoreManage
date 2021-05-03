@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System;
-using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace StoreManage
 {
@@ -31,7 +30,7 @@ namespace StoreManage
        
         public void DisplayPro()
         {
-            using ( AccessoriesEntitiesProduct _entity = new AccessoriesEntitiesProduct())
+            using ( AccessoriesEntities _entity = new AccessoriesEntities())
             {
                 /*List<Product> _productlist = new List<Product>();
                 _productlist = _entity.Products.Select(x => new Product
@@ -60,7 +59,7 @@ namespace StoreManage
         public bool SaveProduct(Product pro)
         {
             bool result = false;
-            using(AccessoriesEntitiesProduct _entity = new AccessoriesEntitiesProduct())
+            using(AccessoriesEntities _entity = new AccessoriesEntities())
             {
                 _entity.Products.Add(pro);
                 _entity.SaveChanges();
@@ -68,9 +67,10 @@ namespace StoreManage
             }
             return result;
         }
-        public Product SetValues(string Name,string Provider, int Price, int Qty)   
+        public Product SetValues(int ID, string Name,string Provider, int Price, int Qty)   
         {
             Product pro = new Product();
+            pro.Id = ID;
             pro.ProductName = Name;
             pro.Provider = Provider;
             pro.Price = Price;
@@ -103,6 +103,7 @@ namespace StoreManage
         }
         public void ClearFields() // Clear the fields after Insert or Update or Delete operation  
         {
+            txtID.Text = "";
             txtProName.Text = "";
             txtProvider.Text = "";
             txtPrice.Text = "";
@@ -114,7 +115,7 @@ namespace StoreManage
             {
                 foreach (DataGridViewRow row in dataGridView.SelectedRows) // foreach datagridview selected rows values  
                 {
-                   
+                    txtID.Text = row.Cells[0].Value.ToString();
                     txtProName.Text = row.Cells[1].Value.ToString();
                     txtProvider.Text = row.Cells[2].Value.ToString();
                     txtPrice.Text = row.Cells[3].Value.ToString();
@@ -134,33 +135,53 @@ namespace StoreManage
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            Product pro = SetValues(txtProName.Text, txtProvider.Text, Convert.ToInt32(txtPrice.Text), Convert.ToInt32(txtQty.Text));
+            Product pro = SetValues(Convert.ToInt32(txtID.Text), txtProName.Text, txtProvider.Text, Convert.ToInt32(txtPrice.Text), Convert.ToInt32(txtQty.Text));
             bool result = UpdateProduct(pro);
             ShowStatus(result, "Update");
         }
         public bool UpdateProduct(Product pro) // UpdateStudentDetails method for update a existing Record  
         {
             bool result = false;
-            using (AccessoriesEntitiesProduct _entity = new AccessoriesEntitiesProduct())
+            try
             {
-                Product _product = new Product();
-                _product = _entity.Products.Where(x => x.ProductName == pro.ProductName).Select(x => x).FirstOrDefault();
-                _product.ProductName = pro.ProductName;
-                _product.Provider = pro.Provider;
-                _product.Price = pro.Price;
-                _product.Quantity = pro.Quantity;
-                _entity.SaveChanges();
-                result = true;
+                using (AccessoriesEntities _entity = new AccessoriesEntities())
+                {
+
+                    Product _product = _entity.Products.Where(x => x.Id == pro.Id).Select(x => x).FirstOrDefault();
+                    _product.ProductName = pro.ProductName;
+                    _product.Provider = pro.Provider;
+                    _product.Price = pro.Price;
+                    _product.Quantity = pro.Quantity;
+                    _entity.SaveChanges();
+                    result = true;
+                }
+                
             }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+
+
+            }
+            
             return result;
         }
         public bool DeleteProduct(Product pro) // UpdateStudentDetails method for update a existing Record  
         {
             bool result = false;
-            using (AccessoriesEntitiesProduct _entity = new AccessoriesEntitiesProduct())
+            using (AccessoriesEntities _entity = new AccessoriesEntities())
             {
                 Product _product = new Product();
-                _product = _entity.Products.Where(x => x.ProductName == pro.ProductName).Select(x => x).FirstOrDefault();
+                _product = _entity.Products.Where(x => x.Id == pro.Id).Select(x => x).FirstOrDefault();
                 _entity.Products.Remove(_product);
                 _entity.SaveChanges();
                 result = true;
@@ -170,7 +191,7 @@ namespace StoreManage
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            Product pro = SetValues(txtProName.Text, txtProvider.Text, Convert.ToInt32(txtPrice.Text), Convert.ToInt32(txtQty.Text));
+            Product pro = SetValues(Convert.ToInt32(txtID.Text), txtProName.Text, txtProvider.Text, Convert.ToInt32(txtPrice.Text), Convert.ToInt32(txtQty.Text));
             bool result = DeleteProduct(pro);
             ShowStatus(result, "Delete");
         }
