@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace StoreManage
 {
@@ -503,6 +505,42 @@ namespace StoreManage
         private void btnClearStaff_Click(object sender, EventArgs e)
         {
             ClearFieldsStaff();
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSearchOrder_TextChanged(object sender, EventArgs e)
+        {
+            SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-7K1R4E8; Initial Catalog = Accessories; Integrated Security = true");
+            conn.Open();
+            /*MessageBox.Show("Connected!");*/
+            SqlCommand cmd = new SqlCommand("select * from Product where productName like'%" + txtSearchOrder.Text + "%' or provider like '%" + txtSearchOrder.Text + "%'", conn);
+            /*SqlDataReader dataReader;*//*
+            cmd.CommandType = CommandType.Text;
+            *//*cmd.CommandText = "select * from Users where email=" + txtEmail.Text;*//*
+            SqlDataReader dataReader = cmd.ExecuteReader();*/
+            SqlDataAdapter sdr = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sdr.Fill(dt);
+            dataGridViewOrder.DataSource = dt;
+            conn.Close();
+        }
+
+        private void dataGridViewOrder_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewOrder.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dataGridViewOrder.SelectedRows)
+                {
+                    txtProNameOrder.Text = row.Cells[1].Value.ToString();
+                    txtProviderOrder.Text = row.Cells[2].Value.ToString();
+                    txtInStock.Text = row.Cells[4].Value.ToString();
+
+                }
+            }
         }
     }
 }
